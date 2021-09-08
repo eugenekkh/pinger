@@ -6,6 +6,7 @@ import (
 )
 
 type Target struct {
+    Host        string  `json:"host"`
     Count       int     `json:"count"`
     Best        float32 `json:"best"`
     Last        float32 `json:"last"`
@@ -33,6 +34,7 @@ func (targets *Targets) String() string {
 
 func (targets *Targets) Set(host string) error {
     (*targets)[host] = new(Target)
+    (*targets)[host].Host = host
 
     return nil
 }

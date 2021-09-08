@@ -7,9 +7,22 @@ import (
     "net/http"
 )
 
+type Output struct {
+    Targets []*Target `json:"data"`
+}
+
 func DefaultHandler(w http.ResponseWriter, r *http.Request) {
+    var output Output
+    output.Targets = make([]*Target, len(targets))
+
+    i := 0
+    for _, target := range targets {
+        output.Targets[i] = target
+        i++
+    }
+
     w.Header().Set("Content-Type", "application/json")
-    json.NewEncoder(w).Encode(targets)
+    json.NewEncoder(w).Encode(output)
 }
 
 func BasicAuth(handler http.HandlerFunc, configHttp ConfigHttp) http.HandlerFunc {
