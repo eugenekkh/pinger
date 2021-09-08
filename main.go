@@ -2,6 +2,7 @@ package main
 
 import (
     "flag"
+    "fmt"
 )
 
 type ConfigHttp struct {
@@ -24,6 +25,7 @@ func main() {
 
     StartPinger()
     for host, _ := range targets {
+        fmt.Println(fmt.Sprintf("Add host \"%s\" to ping", host))
         AddHostForPing(host)
     }
 
